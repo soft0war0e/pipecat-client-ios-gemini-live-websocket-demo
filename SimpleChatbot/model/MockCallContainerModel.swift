@@ -23,13 +23,4 @@ class MockCallContainerModel: CallContainerModel {
             self.toastMessage = nil
         }
     }
-
-    func startAudioLevelSimulation() {
-        // Simulate audio level changes
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            let newLevel = Float.random(in: 0...1)
-            self.remoteAudioLevel = newLevel
-            self.localAudioLevel = newLevel
-        }
-    }
 }

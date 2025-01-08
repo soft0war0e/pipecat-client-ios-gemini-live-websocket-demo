@@ -8,7 +8,6 @@ class CallContainerModel: ObservableObject {
     @Published var voiceClientStatus: String = TransportState.disconnected.description
     @Published var isInCall: Bool = false
     @Published var isBotReady: Bool = false
-    @Published var timerCount = 0
     
     @Published var isMicEnabled: Bool = false
     
@@ -19,8 +18,6 @@ class CallContainerModel: ObservableObject {
     var remoteAudioLevel: Float = 0
     @Published
     var localAudioLevel: Float = 0
-    
-    private var meetingTimer: Timer?
     
     var rtviClientIOS: RTVIClient?
     
@@ -110,22 +107,6 @@ class CallContainerModel: ObservableObject {
         }
     }
     
-    private func startTimer(withExpirationTime expirationTime: Int) {
-        let currentTime = Int(Date().timeIntervalSince1970)
-        self.timerCount = expirationTime - currentTime
-        self.meetingTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            DispatchQueue.main.async {
-                self.timerCount -= 1
-            }
-        }
-    }
-    
-    private func stopTimer() {
-        self.meetingTimer?.invalidate()
-        self.meetingTimer = nil
-        self.timerCount = 0
-    }
-    
     func saveCredentials(geminiAPIKey: String) {
         var currentSettings = SettingsManager.getSettings()
         currentSettings.geminiAPIKey = geminiAPIKey
@@ -133,68 +114,69 @@ class CallContainerModel: ObservableObject {
         SettingsManager.updateSettings(settings: currentSettings)
     }
     
+    // Note: we will actually support audio levels before long
+    
+    private var audioLevelSimulationTimer: Timer? = nil
+    
+    private func startAudioLevelSimulation() {
+        guard audioLevelSimulationTimer == nil else { return }
+        audioLevelSimulationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            let newLevel = Float.random(in: 0...0.25)
+            self.remoteAudioLevel = newLevel
+        }
+    }
+    
+    private func stopAudioLevelSimulation() {
+        audioLevelSimulationTimer?.invalidate()
+        audioLevelSimulationTimer = nil
+    }
 }
 
 extension CallContainerModel:RTVIClientDelegate, LLMHelperDelegate {
     
     private func handleEvent(eventName: String, eventValue: Any? = nil) {
         if let value = eventValue {
-            print("RTVI Demo, received event:\(eventName), value:\(value)")
+            print("Pipecat Demo, received event:\(eventName), value:\(value)")
         } else {
-            print("RTVI Demo, received event: \(eventName)")
+            print("Pipecat Demo, received event: \(eventName)")
         }
     }
     
     func onTransportStateChanged(state: TransportState) {
-        self.handleEvent(eventName: "onTransportStateChanged", eventValue: state)
-        self.voiceClientStatus = state.description
-        self.isInCall = ( state == .connecting || state == .connected || state == .ready || state == .authenticating )
-    }
-    
-    @MainActor
-    func onBotReady(botReadyData: BotReadyData) {
-        self.handleEvent(eventName: "onBotReady.")
-        self.isBotReady = true
-        if let expirationTime = self.rtviClientIOS?.expiry() {
-            self.startTimer(withExpirationTime: expirationTime)
+        Task { @MainActor in
+            self.handleEvent(eventName: "onTransportStateChanged", eventValue: state)
+            self.voiceClientStatus = state.description
+            self.isInCall = ( state == .connecting || state == .connected || state == .ready || state == .authenticating )
         }
     }
     
-    @MainActor
+    func onBotReady(botReadyData: BotReadyData) {
+        Task { @MainActor in
+            self.handleEvent(eventName: "onBotReady")
+            self.isBotReady = true
+            startAudioLevelSimulation()
+        }
+    }
+    
     func onConnected() {
-        self.isMicEnabled = self.rtviClientIOS?.isMicEnabled ?? false
+        Task { @MainActor in
+            self.handleEvent(eventName: "onConnected")
+            self.isMicEnabled = self.rtviClientIOS?.isMicEnabled ?? false
+        }
     }
     
     func onDisconnected() {
-        self.stopTimer()
-        self.isBotReady = false
-    }
-    
-    func onRemoteAudioLevel(level: Float, participant: Participant) {
-        self.remoteAudioLevel = level
-    }
-    
-    func onUserAudioLevel(level: Float) {
-        self.localAudioLevel = level
-    }
-    
-    func onUserTranscript(data: Transcript) {
-        if (data.final ?? false) {
-            self.handleEvent(eventName: "onUserTranscript", eventValue: data.text)
+        Task { @MainActor in
+            self.handleEvent(eventName: "onDisconnected")
+            self.isBotReady = false
+            stopAudioLevelSimulation()
         }
     }
     
-    func onBotTranscript(data: String) {
-        self.handleEvent(eventName: "onBotTranscript", eventValue: data)
-    }
-    
     func onError(message: String) {
-        self.handleEvent(eventName: "onError", eventValue: message)
-        self.showError(message: message)
+        Task { @MainActor in
+            self.handleEvent(eventName: "onError", eventValue: message)
+            self.showError(message: message)
+        }
     }
-    
-    func onTracksUpdated(tracks: Tracks) {
-        self.handleEvent(eventName: "onTracksUpdated", eventValue: tracks)
-    }
-    
 }

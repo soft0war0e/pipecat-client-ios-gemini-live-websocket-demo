@@ -6,25 +6,7 @@ struct MeetingView: View {
     @EnvironmentObject private var model: CallContainerModel
     
     var body: some View {
-        VStack {
-            // Header Toolbar
-            HStack {
-                Image("dailyBot")
-                    .resizable()
-                    .frame(width: 48, height: 48)
-                Spacer()
-                HStack {
-                    Image(systemName: "stopwatch")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                    Text(timerString(from: self.model.timerCount))
-                        .font(.headline)
-                }.padding()
-                    .background(Color.timer)
-                    .cornerRadius(12)
-            }
-            .padding()
-            
+        VStack {           
             // Main Panel
             VStack {
                 VStack {
@@ -90,18 +72,10 @@ struct MeetingView: View {
         .background(Color.backgroundApp)
         .toast(message: model.toastMessage, isShowing: model.showToast)
     }
-    
-    func timerString(from count: Int) -> String {
-        let hours = count / 3600
-        let minutes = (count % 3600) / 60
-        let seconds = count % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
 }
 
 #Preview {
     let mockModel = MockCallContainerModel()
     let result = MeetingView().environmentObject(mockModel as CallContainerModel)
-    mockModel.startAudioLevelSimulation()
     return result
 }

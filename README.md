@@ -1,6 +1,6 @@
 # Demo: Pipecat iOS SDK with Gemini Multimodal Live WebSocket Transport
 
-Basic implementation using the [Pipecat iOS SDK with Gemini Multimodal Live WebSocket Transport](https://github.com/pipecat-ai/pipecat-client-ios-gemini-live-websocket).
+Basic demo using the [Pipecat iOS SDK with Gemini Multimodal Live WebSocket Transport](https://github.com/pipecat-ai/pipecat-client-ios-gemini-live-websocket).
 
 If you're looking for a demo that shows how to use the [Pipecat iOS SDK with Daily WebRTC Transport](https://github.com/pipecat-ai/pipecat-client-ios-daily) to talk to a [Pipecat](https://github.com/pipecat-ai/pipecat)-powered agent running server side, check out [this demo instead](https://github.com/pipecat-ai/pipecat/tree/main/examples/simple-chatbot/examples/ios).
 

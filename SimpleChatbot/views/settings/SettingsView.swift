@@ -81,6 +81,5 @@ struct SettingsView: View {
 #Preview {
     let mockModel = MockCallContainerModel()
     let result = SettingsView(showingSettings: .constant(true)).environmentObject(mockModel as CallContainerModel)
-    mockModel.startAudioLevelSimulation()
     return result
 }

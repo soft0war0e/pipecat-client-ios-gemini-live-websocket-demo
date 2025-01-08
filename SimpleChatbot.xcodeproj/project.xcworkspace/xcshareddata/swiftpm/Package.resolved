@@ -1,0 +1,24 @@
+{
+  "originHash" : "0c137a27e34c18a0c2c39cb43c13b093ab4a45e852fabb4156bf686abcc62c30",
+  "pins" : [
+    {
+      "identity" : "pipecat-client-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pipecat-ai/pipecat-client-ios.git",
+      "state" : {
+        "revision" : "d2d9946cf93f1e89290c724caa1631cffa439524",
+        "version" : "0.3.1"
+      }
+    },
+    {
+      "identity" : "pipecat-client-ios-gemini-live-websocket",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pipecat-ai/pipecat-client-ios-gemini-live-websocket",
+      "state" : {
+        "revision" : "ffc634d83c3d2cf20113eee5c77a1935366b5a2d",
+        "version" : "0.3.1"
+      }
+    }
+  ],
+  "version" : 3
+}

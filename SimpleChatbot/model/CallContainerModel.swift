@@ -166,4 +166,10 @@ extension CallContainerModel:RTVIClientDelegate, LLMHelperDelegate {
             self.remoteAudioLevel = level
         }
     }
+    
+    func onUserAudioLevel(level: Float) {
+        Task { @MainActor in
+            self.localAudioLevel = level
+        }
+    }
 }

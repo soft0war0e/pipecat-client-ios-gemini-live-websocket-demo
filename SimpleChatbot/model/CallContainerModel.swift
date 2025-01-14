@@ -113,23 +113,6 @@ class CallContainerModel: ObservableObject {
         // Saving the settings
         SettingsManager.updateSettings(settings: currentSettings)
     }
-    
-    // Note: we will actually support audio levels before long
-    
-    private var audioLevelSimulationTimer: Timer? = nil
-    
-    private func startAudioLevelSimulation() {
-        guard audioLevelSimulationTimer == nil else { return }
-        audioLevelSimulationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            let newLevel = Float.random(in: 0...0.25)
-            self.remoteAudioLevel = newLevel
-        }
-    }
-    
-    private func stopAudioLevelSimulation() {
-        audioLevelSimulationTimer?.invalidate()
-        audioLevelSimulationTimer = nil
-    }
 }
 
 extension CallContainerModel:RTVIClientDelegate, LLMHelperDelegate {
@@ -154,7 +137,6 @@ extension CallContainerModel:RTVIClientDelegate, LLMHelperDelegate {
         Task { @MainActor in
             self.handleEvent(eventName: "onBotReady")
             self.isBotReady = true
-            startAudioLevelSimulation()
         }
     }
     
@@ -169,7 +151,6 @@ extension CallContainerModel:RTVIClientDelegate, LLMHelperDelegate {
         Task { @MainActor in
             self.handleEvent(eventName: "onDisconnected")
             self.isBotReady = false
-            stopAudioLevelSimulation()
         }
     }
     
@@ -177,6 +158,18 @@ extension CallContainerModel:RTVIClientDelegate, LLMHelperDelegate {
         Task { @MainActor in
             self.handleEvent(eventName: "onError", eventValue: message)
             self.showError(message: message)
+        }
+    }
+    
+    func onRemoteAudioLevel(level: Float, participant: Participant) {
+        Task { @MainActor in
+            self.remoteAudioLevel = level
+        }
+    }
+    
+    func onUserAudioLevel(level: Float) {
+        Task { @MainActor in
+            self.localAudioLevel = level
         }
     }
 }

@@ -695,7 +695,7 @@
 			repositoryURL = "https://github.com/pipecat-ai/pipecat-client-ios-gemini-live-websocket";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.1;
+				minimumVersion = 0.3.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

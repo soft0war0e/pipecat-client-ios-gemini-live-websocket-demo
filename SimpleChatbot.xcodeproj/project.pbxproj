@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		214CD6DF2D2F0FFB00FB69B5 /* PipecatClientIOSGeminiLiveWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 214CD6DE2D2F0FFB00FB69B5 /* PipecatClientIOSGeminiLiveWebSocket */; };
 		90031FA72C616EE700408370 /* SimpleChatbotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90031FA62C616EE700408370 /* SimpleChatbotApp.swift */; };
 		90031FA92C616EE700408370 /* PreJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90031FA82C616EE700408370 /* PreJoinView.swift */; };
 		90031FAB2C616EE800408370 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90031FAA2C616EE800408370 /* Assets.xcassets */; };
@@ -25,6 +24,7 @@
 		90ABB9A32C74E1CE000D9CC7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ABB9A22C74E1CE000D9CC7 /* SettingsView.swift */; };
 		90ABB9A62C74EA8A000D9CC7 /* SettingsPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ABB9A52C74EA8A000D9CC7 /* SettingsPreference.swift */; };
 		90ABB9A82C74EAB1000D9CC7 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ABB9A72C74EAB1000D9CC7 /* SettingsManager.swift */; };
+		90CED5EB2D38318100B03BC9 /* PipecatClientIOSGeminiLiveWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 90CED5EA2D38318100B03BC9 /* PipecatClientIOSGeminiLiveWebSocket */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				214CD6DF2D2F0FFB00FB69B5 /* PipecatClientIOSGeminiLiveWebSocket in Frameworks */,
+				90CED5EB2D38318100B03BC9 /* PipecatClientIOSGeminiLiveWebSocket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +226,7 @@
 			);
 			name = SimpleChatbot;
 			packageProductDependencies = (
-				214CD6DE2D2F0FFB00FB69B5 /* PipecatClientIOSGeminiLiveWebSocket */,
+				90CED5EA2D38318100B03BC9 /* PipecatClientIOSGeminiLiveWebSocket */,
 			);
 			productName = SimpleChatbot;
 			productReference = 90031FA32C616EE700408370 /* SimpleChatbot.app */;
@@ -301,7 +301,7 @@
 			);
 			mainGroup = 90031F9A2C616EE700408370;
 			packageReferences = (
-				214CD6DC2D2F0FCC00FB69B5 /* XCRemoteSwiftPackageReference "pipecat-client-ios-gemini-live-websocket" */,
+				90CED5E92D38318100B03BC9 /* XCRemoteSwiftPackageReference "pipecat-client-ios-gemini-live-websocket" */,
 			);
 			productRefGroup = 90031FA42C616EE700408370 /* Products */;
 			projectDirPath = "";
@@ -690,20 +690,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		214CD6DC2D2F0FCC00FB69B5 /* XCRemoteSwiftPackageReference "pipecat-client-ios-gemini-live-websocket" */ = {
+		90CED5E92D38318100B03BC9 /* XCRemoteSwiftPackageReference "pipecat-client-ios-gemini-live-websocket" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pipecat-ai/pipecat-client-ios-gemini-live-websocket";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.2;
+				minimumVersion = 0.3.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		214CD6DE2D2F0FFB00FB69B5 /* PipecatClientIOSGeminiLiveWebSocket */ = {
+		90CED5EA2D38318100B03BC9 /* PipecatClientIOSGeminiLiveWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 214CD6DC2D2F0FCC00FB69B5 /* XCRemoteSwiftPackageReference "pipecat-client-ios-gemini-live-websocket" */;
+			package = 90CED5E92D38318100B03BC9 /* XCRemoteSwiftPackageReference "pipecat-client-ios-gemini-live-websocket" */;
 			productName = PipecatClientIOSGeminiLiveWebSocket;
 		};
 /* End XCSwiftPackageProductDependency section */

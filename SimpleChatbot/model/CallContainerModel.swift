@@ -1,7 +1,7 @@
 import SwiftUI
 
-import RTVIClientIOSGeminiLiveWebSocket
-import RTVIClientIOS
+import PipecatClientIOSGeminiLiveWebSocket
+import PipecatClientIOS
 
 class CallContainerModel: ObservableObject {
     
@@ -33,7 +33,7 @@ class CallContainerModel: ObservableObject {
     
     init() {
         // Changing the log level
-        RTVIClientIOS.setLogLevel(.warn)
+        PipecatClientIOS.setLogLevel(.warn)
     }
     
     @MainActor

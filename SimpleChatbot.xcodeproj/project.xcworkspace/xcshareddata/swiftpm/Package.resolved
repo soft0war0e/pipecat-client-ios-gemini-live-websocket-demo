@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pipecat-ai/pipecat-client-ios-gemini-live-websocket",
       "state" : {
-        "revision" : "707bd37eec7398d2fd0c26a45de98642c24d7e0b",
-        "version" : "0.3.3"
+        "revision" : "89cb0fb3753629a34e99ee4381316c901a71cf1f",
+        "version" : "0.3.4"
       }
     }
   ],
